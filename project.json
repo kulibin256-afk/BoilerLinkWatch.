@@ -21,7 +21,27 @@
         "LinkWatch"
       ],
       "info": {
-        "path": "LinkWatch/Info.plist"
+        "path": "LinkWatch/Info.plist",
+        "properties": {
+          "BGTaskSchedulerPermittedIdentifiers": [
+            "ua.boilermonitor.linkwatch.refresh"
+          ],
+          "CFBundleDisplayName": "Зв’язок котелень",
+          "CFBundleShortVersionString": "0.1",
+          "CFBundleVersion": "1",
+          "UIApplicationSceneManifest": {
+            "UIApplicationSupportsMultipleScenes": false
+          },
+          "UIBackgroundModes": [
+            "fetch"
+          ],
+          "UILaunchScreen": {},
+          "UISupportedInterfaceOrientations": [
+            "UIInterfaceOrientationPortrait",
+            "UIInterfaceOrientationLandscapeLeft",
+            "UIInterfaceOrientationLandscapeRight"
+          ]
+        }
       },
       "settings": {
         "base": {
