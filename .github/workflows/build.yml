@@ -1,0 +1,28 @@
+name: Build iPhone test
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate Xcode project
+        run: |
+          brew install xcodegen
+          xcodegen generate --spec project.json
+      - name: Build unsigned iPhone application
+        run: xcodebuild -project BoilerLinkWatch.xcodeproj -scheme LinkWatch -configuration Release -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build CODE_SIGNING_ALLOWED=NO build
+      - name: Package for local signing
+        run: |
+          mkdir Payload
+          cp -R build/Build/Products/Release-iphoneos/LinkWatch.app Payload/
+          zip -qr BoilerLinkWatch-unsigned.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: BoilerLinkWatch-unsigned
+          path: BoilerLinkWatch-unsigned.ipa
+          retention-days: 7
